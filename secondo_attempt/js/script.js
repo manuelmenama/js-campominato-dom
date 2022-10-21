@@ -22,7 +22,7 @@ console.log('secondo campo loaded');
  */
 
 const objectContainer = document.querySelector('.container');
-const playButton = document.querySelectorAll('button');
+const playButton = document.querySelector('button');
 const gameDifficulty = document.getElementById('game-changer');
 
 score = 0;
