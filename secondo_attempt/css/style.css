@@ -1,3 +1,4 @@
+/* general */
 *,
 *::after,
 *::before{
@@ -8,4 +9,61 @@
 
 body{
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+/* header */
+header{
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+select{
+  margin-right: 10px;
+  padding-right: 50px;
+}
+
+button{
+  padding: 0 25px;
+}
+
+/* main */
+.main-wrapper{
+  height: calc(100vh - 140px);
+  background-color: rgb(127, 255, 212);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container{
+  width: 600px;
+  height: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.card{
+  cursor: pointer;
+  width: calc(100% / 10);
+  height: calc(100% / 10);
+  border: 1px solid black;
+  background-color: rgb(127, 255, 212);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card.active{
+  background-color: rgb(72, 148, 123);
+}
+.card.bomb{
+  background-color: brown;
+}
+/* footer */
+footer{
+  height: 60px;
 }
