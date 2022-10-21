@@ -25,16 +25,24 @@ const objectContainer = document.querySelector('.container');
 const playButton = document.querySelector('button');
 const gameDifficulty = document.getElementById('game-changer');
 
-score = 0;
-maxBombNumber = 16;
-bombPosition = [];
+let score = 0;
+const maxBombNumber = 16;
+let bombPosition = [];
 
 playButton.addEventListener('click', playFunction);
 
 function playFunction() {
+
   resetPlayground();
+
   playgroundDimension();
   console.log(playgroundDimension());
+
+  createCard(playgroundDimension());
+
+  bombPosition = bombsGenerator(maxBombNumber);
+  
+  console.log(bombPosition);
 }
 
 function resetPlayground() {
@@ -43,4 +51,44 @@ function resetPlayground() {
 
 function playgroundDimension() {
   return Math.pow(gameDifficulty.value, 2);
+}
+
+function createCard(maxCounter) {
+  
+  
+  for(let counter = 0; counter < maxCounter; counter++){
+    const cardCreated = document.createElement('div');
+    objectContainer.append(cardCreated);
+    cardCreated.classList.add("card");
+    cardCreated.innerHTML = `<span>${counter + 1}</span>`;
+    cardCreated.style.width = `calc(100% / ${gameDifficulty.value})`;
+    cardCreated.style.height = `calc(100% / ${gameDifficulty.value})`;
+    cardCreated.idCard = counter + 1;
+    cardCreated.addEventListener('click', activeControl);
+  }
+}
+
+function activeControl() {
+  console.log(this);
+
+  this.classList.add('active');
+}
+
+function generateRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function bombsGenerator(maxArrayLenght) {
+  const bombsGenerated = [];
+  let min = 1;
+  let max = playgroundDimension();
+  let i = 0;
+  while(i < maxArrayLenght) {
+    let randomNumber = generateRandomNumber(min, max);
+    if(!bombsGenerated.includes(bombsGenerated[i])) {
+      bombsGenerated.push(randomNumber);
+      i++;
+    }
+  }
+  return bombsGenerated;
 }
