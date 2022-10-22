@@ -21,10 +21,12 @@ console.log('secondo campo loaded');
  *  -messaggio affermativo
  */
 
+//collego gli elementi del dom a delle variabili
 const objectContainer = document.querySelector('.container');
 const playButton = document.querySelector('button');
 const gameDifficulty = document.getElementById('game-changer');
 
+//assegni
 let score = 0;
 const maxBombNumber = 16;
 let bombPosition = [];
@@ -47,6 +49,7 @@ function playFunction() {
 
 function resetPlayground() {
   objectContainer.innerHTML = '';
+  score = 0;
 }
 
 function playgroundDimension() {
@@ -58,6 +61,7 @@ function createCard(maxCounter) {
   
   for(let counter = 0; counter < maxCounter; counter++){
     const cardCreated = document.createElement('div');
+    //objectContainer.style.border = `1px solid black`;
     objectContainer.append(cardCreated);
     cardCreated.classList.add("card");
     cardCreated.innerHTML = `<span>${counter + 1}</span>`;
@@ -69,9 +73,46 @@ function createCard(maxCounter) {
 }
 
 function activeControl() {
-  console.log(this);
+  // console.log(this.idCard);
+  if(!(bombPosition.includes(this.idCard))) {
+    
+    this.classList.add('active');
+    this.removeEventListener('click', activeControl);
+    score++;
+    if(score === (playgroundDimension() - maxBombNumber)){
+    console.log(playgroundDimension());
+    console.log('hai vinto con tutte le caselle');
+    winCondition(true);
+    }
+  }else{
+    console.log('hai preso una bomba', score);
+    winCondition(false);
+  }
+}
 
-  this.classList.add('active');
+function winCondition(isWin) {
+
+  let resultMessage = "";
+  if(isWin) {
+    resultMessage = `Hai vinto scoprendo tutte le caselle senza una bomba!`
+  }else{
+    resultMessage = `Hai perso... Hai totalizzato ${score} caselle.`
+  }
+  const endGameLayer = document.createElement('div');
+  objectContainer.append(endGameLayer);
+  endGameLayer.classList.add('end-game');
+  endGameLayer.innerHTML = `<h3>${resultMessage}</h3>`;
+  showBombs();
+}
+
+function showBombs() {
+  const cardControl = document.getElementsByClassName('card');
+  for(let i = 0; i < playgroundDimension(); i++) {
+    const card = cardControl[i];
+    if(bombPosition.includes(card.idCard)) {
+      card.classList.add('bomb');
+    }
+  }
 }
 
 function generateRandomNumber(min, max) {

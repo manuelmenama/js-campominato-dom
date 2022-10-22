@@ -38,12 +38,18 @@ button{
   align-items: center;
 }
 
+.space-limit{
+  width: 70%;
+  margin: 0 auto;
+}
+
 .container{
   width: 600px;
   height: 600px;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
+  position: relative;
 }
 
 .card{
@@ -60,10 +66,36 @@ button{
 .card.active{
   background-color: rgb(72, 148, 123);
 }
+
 .card.bomb{
   background-color: brown;
+}
+
+.end-game{
+  background-color: rgba(170, 170, 170, 0.26);
+  width: 100%;
+  height: 100%;
+  position: relative;
+  left: 0;
+  top: -100%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h3{
+  text-align: center;
+  background-color: azure;
+  border: 2px solid black;
+  padding: 10px 20px;
 }
 /* footer */
 footer{
   height: 60px;
+}
+
+p{
+  line-height: 60px;
+  font-size: 0.7rem;
 }
