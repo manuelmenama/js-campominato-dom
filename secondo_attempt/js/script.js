@@ -26,11 +26,12 @@ const objectContainer = document.querySelector('.container');
 const playButton = document.querySelector('button');
 const gameDifficulty = document.getElementById('game-changer');
 
-//assegni
+//assegno variabili globali
 let score = 0;
 const maxBombNumber = 16;
 let bombPosition = [];
 
+//la pressione del bottone play genera le caselle
 playButton.addEventListener('click', playFunction);
 
 function playFunction() {
@@ -42,22 +43,26 @@ function playFunction() {
 
   createCard(playgroundDimension());
 
+  //le bombe le inserisco in una variabile globale
   bombPosition = bombsGenerator(maxBombNumber);
   
   console.log(bombPosition);
 }
 
+//funzione che resetta gli elementi globali ad ogni pressione del playbutton
 function resetPlayground() {
   objectContainer.innerHTML = '';
   score = 0;
 }
 
+//funzione per restituire il valeore della dimensione totale del campo da gioco
+//ovvero del numero delle caselle
 function playgroundDimension() {
   return Math.pow(gameDifficulty.value, 2);
 }
 
-function createCard(maxCounter) {
-  
+//funzione che crea la card e la rende anche cliccabile
+function createCard(maxCounter) {  
   
   for(let counter = 0; counter < maxCounter; counter++){
     const cardCreated = document.createElement('div');
@@ -72,6 +77,7 @@ function createCard(maxCounter) {
   }
 }
 
+//funzione dei controlli al click dellla card
 function activeControl() {
   // console.log(this.idCard);
   if(!(bombPosition.includes(this.idCard))) {
@@ -90,14 +96,17 @@ function activeControl() {
   }
 }
 
+//funzione di controllo dello stato di gioco
 function winCondition(isWin) {
 
   let resultMessage = "";
+  
   if(isWin) {
     resultMessage = `Hai vinto scoprendo tutte le caselle senza una bomba!`
   }else{
     resultMessage = `Hai perso... Hai totalizzato ${score} caselle.`
   }
+  //alla fine del game aggiungo un layer semitrasparente che blocca il click sulle caselle
   const endGameLayer = document.createElement('div');
   objectContainer.append(endGameLayer);
   endGameLayer.classList.add('end-game');
@@ -105,6 +114,7 @@ function winCondition(isWin) {
   showBombs();
 }
 
+//funzione di end game che accende tutte le caselle bomba
 function showBombs() {
   const cardControl = document.getElementsByClassName('card');
   for(let i = 0; i < playgroundDimension(); i++) {
@@ -115,10 +125,12 @@ function showBombs() {
   }
 }
 
+//famigerata funzione per generare un numero casuale
 function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+//funzione per la generazione delle bombe
 function bombsGenerator(maxArrayLenght) {
   const bombsGenerated = [];
   let min = 1;
